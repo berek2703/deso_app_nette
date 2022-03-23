@@ -2,6 +2,7 @@
 
 {block content}
 <div class="container">
+	<button><a n:href="Task:create">Napsat nový příspěvek</a></button>
 <table>
 	<tr>
 		<th>Title</th>
@@ -10,7 +11,7 @@
 	</tr>
 	{foreach $tasks as $task}
 		<tr class="task">
-			<td class="task_title">{$task->title}</td>
+			<td class="task_title"><a href="{link Task:show $task->id}">{$task->title}</a></td>
 			<td class="task_description">{$task->description}</td>
 			<td><div class="date">{$task->created_at|date:'F j, Y'}</div></td>
 		</tr>
