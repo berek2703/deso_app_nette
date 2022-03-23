@@ -24,4 +24,8 @@ final class TaskModel
     public function insertTask(array $data) {
         return $this->db->table('tasks')->insert($data);
     }
+
+    public function updateTask(array $data, int $task_id) {
+        return $this->db->table('tasks')->where('id', $task_id)->update($data);
+    }
 }

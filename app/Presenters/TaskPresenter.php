@@ -23,6 +23,13 @@ final class TaskPresenter extends Nette\Application\UI\Presenter
         $this->template->task = $this->taskmodel->getTask($task_id);
     }
 
+    public function renderEdit(int $task_id): void
+    {
+        $task = $this->taskmodel->getTask($task_id);
+
+        $this->getComponent('taskForm')->setDefaults($task->toArray());
+    }
+
     protected function createComponentTaskForm(): Form
     {
         $form = new Form;
@@ -36,9 +43,16 @@ final class TaskPresenter extends Nette\Application\UI\Presenter
 
     public function taskFormSucceeded(array $data): void
     {
-        $task = $this->taskmodel->insertTask($data);
+        $task_id = $this->getParameter('task_id');
 
-        $this->flashMessage("Task byl přidán", 'success');
-        $this->redirect('Task:show', $task->id);
+        if ($task_id) {
+            $task = $this->taskmodel->updateTask($data, (int) $task_id);
+            $this->flashMessage("Task byl upraven", 'success');
+        } else {
+            $task = $this->taskmodel->insertTask($data);
+            $this->flashMessage("Task byl přidán", 'success');
+        }
+
+        $this->redirect('Homepage:default');
     }
 }
