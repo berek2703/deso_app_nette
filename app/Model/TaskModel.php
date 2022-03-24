@@ -28,4 +28,8 @@ final class TaskModel
     public function updateTask(array $data, int $task_id) {
         return $this->db->table('tasks')->where('id', $task_id)->update($data);
     }
+
+    public function deleteTask(int $task_id) {
+        return $this->db->table('tasks')->where('id', $task_id)->delete();
+    }
 }

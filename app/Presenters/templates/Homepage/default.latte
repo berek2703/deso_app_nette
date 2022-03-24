@@ -1,8 +1,11 @@
 
-
 {block content}
+
 <div class="container">
-	<button><a n:href="Task:create">Napsat nový příspěvek</a></button>
+	<br><br><br>
+	<hr>
+
+	<h1>Tasks</h1><button class="new_task"><a n:href="Task:create">Napsat nový příspěvek</a></button>
 <table>
 	<tr>
 		<th>Title</th>
@@ -15,15 +18,53 @@
 			<td class="task_title"><a href="{link Task:show $task->id}">{$task->title}</a></td>
 			<td class="task_description">{$task->description}</td>
 			<td><div class="date">{$task->created_at|date:'F j, Y'}</div></td>
-			<td><a n:href="Task:edit $task->id">Edit task</a></td>
+			<td class="edit_td"><button class="edit_button"><a n:href="Task:edit $task->id">Edit task</a></button></td>
+			<td class="edit_td"><button class="delete_button"><a n:href="Task:delete $task->id">Delete task</a></button></td>
 		</tr>
 
 	{/foreach}
 </table>
+<br><br><br>
+	<h1 style="width: 600px;">Chart with counts of tasks per day</h1><br>
+	<canvas id="myChart" ></canvas>
 
 </div>
 
 
-<style>
-
-</style>
+<script>
+	const ctx = document.getElementById('myChart').getContext('2d');
+	const myChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: {$graf_data_dates},
+			datasets: [{
+				label: 'Count of tasks per day',
+				data: {$graf_data_counts},
+				backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+				],
+				borderColor: [
+					'rgba(255, 99, 132, 1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+			scales: {
+				y: {
+					beginAtZero: true
+				}
+			}
+		}
+	});
+</script>

@@ -30,6 +30,13 @@ final class TaskPresenter extends Nette\Application\UI\Presenter
         $this->getComponent('taskForm')->setDefaults($task->toArray());
     }
 
+    public function renderDelete(int $task_id): void
+    {
+        $this->taskmodel->deleteTask($task_id);
+        $this->flashMessage("Task byl odstraněn", "success");
+        $this->redirect('Homepage:default');
+    }
+
     protected function createComponentTaskForm(): Form
     {
         $form = new Form;

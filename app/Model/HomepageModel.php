@@ -20,4 +20,10 @@ final class HomepageModel
     {
         return $this->db->table('tasks')->fetchAll();
     }
+
+    public function getdateGraph() {
+        return $this->db->query('SELECT COUNT(1) AS counts, DATE(created_at) AS count_date 
+                           FROM tasks 
+                           GROUP BY DATE(created_at)');
+    }
 }
