@@ -1,9 +1,12 @@
 {block content}
+<div class="container">
+    <br><br><br>
+    <hr>
+    <h1>Detail</h1><button class="new_task" ><a n:href="Homepage:default">← zpět na výpis příspěvků</a></button>
+    <div class="show">
+        <h1 n:block="title">{$task->title}</h1>
+        <p style="display: inline-block"><b>Created at:</b> {$task->created_at|date:'F j, Y'} </p>
+        <p><b>Description: </b><br> {$task->description}</p>
+    </div>
 
-<p><a n:href="Homepage:default">← zpět na výpis příspěvků</a></p>
-
-<div class="date">{$task->created_at|date:'F j, Y'}</div>
-
-<h1 n:block="title">{$task->title}</h1>
-
-<div class="task">{$task->description}</div>
+</div>
